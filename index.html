@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="noindex, nofollow">
+    <title>EZGZ INC. | Professional Plant Protection Systems</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { --primary: #1a5d1a; --accent: #ff9900; --bg: #fdfdfd; --text: #222; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; background: var(--bg); color: var(--text); line-height: 1.7; }
+        
+        /* 顶部工具栏：邮箱靠左，语言靠右 */
+        .lang-bar { 
+            background: #111; 
+            padding: 10px 10%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        .top-email { color: #aaa; font-size: 13px; text-decoration: none; transition: 0.3s; display: flex; align-items: center; }
+        .top-email i { color: var(--accent); margin-right: 8px; }
+        .top-email:hover { color: #fff; }
+
+        .lang-group { display: flex; gap: 10px; }
+        .lang-btn { cursor: pointer; color: #888; font-size: 12px; font-weight: bold; padding: 4px 10px; border-radius: 4px; border: 1px solid #333; transition: 0.3s; }
+        .lang-btn:hover { color: #fff; }
+        .lang-btn.active { color: #fff; border-color: var(--accent); background: rgba(255,153,0,0.1); }
+
+        nav { background: #fff; padding: 20px 10%; border-bottom: 2px solid var(--primary); display: flex; align-items: center; justify-content: space-between; }
+        .logo-area { display: flex; flex-direction: column; }
+        .logo { font-size: 28px; font-weight: 900; color: var(--primary); letter-spacing: 0.5px; line-height: 1; text-decoration: none; }
+        .logo span { color: var(--accent); margin-left: 2px; }
+        .logo-sub { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px; font-weight: 700; transition: 0.3s; }
+
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; display: flex; flex-wrap: wrap; gap: 50px; }
+        
+        /* 图片展示逻辑 */
+        .img-side { flex: 1; min-width: 350px; position: sticky; top: 20px; height: fit-content; }
+        .main-img-container { 
+            width: 100%; 
+            aspect-ratio: 1/1;
+            position: relative; 
+            border-radius: 8px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            background: #fff;
+        }
+        .main-img-container img { width: 100%; height: 100%; object-fit: contain; display: block; transition: opacity 0.4s ease; }
+
+        .thumb-nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
+        .thumb-item { aspect-ratio: 1/1; border-radius: 4px; cursor: pointer; overflow: hidden; border: 2px solid transparent; transition: 0.2s; opacity: 0.5; }
+        .thumb-item:hover, .thumb-item.active { opacity: 1; }
+        .thumb-item.active { border-color: var(--primary); }
+        .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
+
+        .content-side { flex: 1.2; min-width: 350px; }
+        .lang-content { display: none; }
+        .lang-content.active { display: block; }
+
+        h1 { font-size: 2.2rem; line-height: 1.2; color: #111; margin-top: 0; margin-bottom: 15px; }
+        .tagline { font-weight: bold; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; margin-bottom: 10px; display: block; }
+        h3 { color: #111; margin-top: 25px; font-size: 1.15rem; display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+        h3 i { color: var(--primary); font-size: 1rem; }
+        p { margin-bottom: 12px; color: #555; }
+
+        .cta-box { margin-top: 40px; }
+        .btn { background: var(--accent); color: #fff; padding: 18px 50px; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 1.1rem; display: inline-block; transition: 0.3s; }
+        .btn:hover { background: #e68a00; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255,153,0,0.3); }
+
+        footer { background: #111; color: #aaa; padding: 60px 10% 40px; margin-top: 100px; }
+        .contact-box { background: rgba(255,153,0,0.05); border: 1px dashed #444; padding: 25px; border-radius: 4px; margin-bottom: 30px; }
+        .contact-box h4 { color: var(--accent); margin-top: 0; text-transform: uppercase; letter-spacing: 1px; }
+        .contact-info { display: flex; flex-wrap: wrap; gap: 30px; margin-top: 15px; }
+        .contact-item { display: flex; align-items: center; gap: 10px; color: #eee; font-size: 1.1rem; }
+        .contact-item i { color: var(--accent); }
+        .contact-item a { color: #eee; text-decoration: none; }
+
+        .privacy-card { background: #1a1a1a; padding: 25px; border-radius: 4px; margin-bottom: 20px; border-left: 3px solid var(--primary); }
+        .privacy-card h4 { color: #eee; margin-top: 0; margin-bottom: 10px; }
+        .copy { text-align: center; border-top: 1px solid #222; padding-top: 30px; font-size: 13px; color: #666; line-height: 1.8; }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .lang-bar { flex-direction: column; gap: 12px; padding: 15px 5%; }
+            nav { padding: 15px 5%; flex-direction: column; gap: 15px; text-align: center; }
+            .container { margin: 20px auto; gap: 30px; }
+            .img-side { position: relative; top: 0; min-width: 100%; }
+            .content-side { min-width: 100%; }
+            h1 { font-size: 1.6rem; }
+            .btn { display: block; text-align: center; width: 100%; box-sizing: border-box; }
+            .contact-info { flex-direction: column; gap: 15px; }
+            footer { padding: 40px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="lang-bar">
+    <a href="mailto:sales@ezgz.com" class="top-email">
+        <i class="fas fa-envelope"></i> sales@ezgz.com
+    </a>
+    <div class="lang-group">
+        <div class="lang-btn active" id="btn-en" onclick="changeLang('en')">EN</div>   
+        <div class="lang-btn" id="btn-fr" onclick="changeLang('fr')">FR</div>
+        <div class="lang-btn" id="btn-es" onclick="changeLang('es')">ES</div>
+        <div class="lang-btn" id="btn-zh" onclick="changeLang('zh')">中文</div>
+    </div>
+</div>
+
+<nav>
+    <div class="logo-area">
+        <div class="logo">EZGZ&nbsp;<span>INC.</span></div>
+        <div id="logo-subtext" class="logo-sub">EASY GARDEN ZONE</div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="img-side">
+        <div class="main-img-container">
+            <img id="main-display" src="1.jpg" alt="EZGZ INC. Plant Protection Kit">
+        </div>
+        <div class="thumb-nav">
+            <div class="thumb-item active" onclick="manualUpdate(0)"><img src="1.jpg" alt="1"></div>
+            <div class="thumb-item" onclick="manualUpdate(1)"><img src="2.jpg" alt="2"></div>
+            <div class="thumb-item" onclick="manualUpdate(2)"><img src="3.jpg" alt="3"></div>
+            <div class="thumb-item" onclick="manualUpdate(3)"><img src="4.jpg" alt="4"></div>
+            <div class="thumb-item" onclick="manualUpdate(4)"><img src="5.jpg" alt="5"></div>
+            <div class="thumb-item" onclick="manualUpdate(5)"><img src="6.jpg" alt="6"></div>
+            <div class="thumb-item" onclick="manualUpdate(6)"><img src="7.jpg" alt="7"></div>
+            <div class="thumb-item" onclick="manualUpdate(7)"><img src="8.jpg" alt="8"></div>
+        </div>
+    </div>
+
+    <div class="content-side">
+        <div id="en-content" class="lang-content active">
+            <span class="tagline">Industrial Grade Protection</span>
+            <h1>Plant Covers Freeze Protection Kit (10x30ft / 3.05x9.14m)</h1>
+            <p>EZGZ INC. presents the ultimate all-in-one solution for extreme weather gardening. Our professional-grade 1.77oz/yd² blanket ensures your investment stays safe from frost, snow, and wind.</p>
+            <div class="feature-item">
+                <h3><i class="fas fa-box-open"></i> 1. Complete All-in-One Kit</h3>
+                <p>Includes: 10x30ft heavy-duty frost blanket, 20 garden stakes (15cm), 20 stainless steel clips, 100ft plant ties, mallet, and gloves. Everything you need in one box!</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-shield-alt"></i> 2. Superior 1.77oz/yd² Protection</h3>
+                <p>Made of premium 60g/m² non-woven fabric. This high-density material provides a superior thermal barrier to raise the ambient temperature for your plants.</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-wind"></i> 3. Multi-Season Breathable Design</h3>
+                <p>Use it as a sun shade in summer or a pest barrier in spring. The breathable fabric allows critical air, light, and water to nourish your plants year-round.</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-hammer"></i> 4. Easy Installation with Tools</h3>
+                <p>Secure setup is effortless with the included mallet and U-stakes. Industrial clips and ties provide customized fastening for any garden structure.</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-seedling"></i> 5. Wide Application</h3>
+                <p>Perfect for raised beds, vegetable patches, shrubs, and citrus trees. Specifically designed to withstand the toughest weather conditions.</p>
+            </div>
+            <div class="cta-box"><a href="https://www.amazon.ca/dp/B0FLY5JSY7" class="btn">Shop on Amazon.ca</a></div>
+        </div>
+
+        <div id="fr-content" class="lang-content">
+            <span class="tagline">Protection de Qualité Industrielle</span>
+            <h1>Kit de Protection Contre le Gel (10x30ft / 3.05x9.14m)</h1>
+            <p>EZGZ INC. présente la solution tout-en-un ultime pour le jardinage par temps extrême. Notre couverture de 60g/m² garantit la sécurité de vos plantes.</p>
+            <div class="feature-item">
+                <h3><i class="fas fa-box-open"></i> 1. Kit Tout-en-Un Complet</h3>
+                <p>Comprend : couverture robuste 10x30ft, 20 piquets (15cm), 20 clips en inox, attaches de 100ft, maillet et gants.</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-shield-alt"></i> 2. Protection Supérieure 60g/m²</h3>
+                <p>Fabriqué en tissu non tissé de qualité supérieure. Crée une barrière thermique pour élever la température ambiante.</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-wind"></i> 3. Conception Respirante Multi-saisons</h3>
+                <p>Pare-soleil en été ou barrière contre les nuisibles au printemps. Laisse passer l'air, la lumière et l'eau.</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-hammer"></i> 4. Installation Facile avec Outils</h3>
+                <p>Installation sans effort avec le maillet et les piquets en U inclus. Fixation personnalisée pour toute structure.</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-seedling"></i> 5. Large Application</h3>
+                <p>Idéal pour les lits surélevés, les arbustes et les agrumes. Conçu pour les conditions climatiques les plus dures.</p>
+            </div>
+            <div class="cta-box"><a href="https://www.amazon.ca/dp/B0FLY5JSY7" class="btn">Acheter sur Amazon.ca</a></div>
+        </div>
+
+        <div id="es-content" class="lang-content">
+            <span class="tagline">Protección de Grado Industrial</span>
+            <h1>Kit de Protección Contra Heladas (10x30ft / 3.05x9.14m)</h1>
+            <p>EZGZ INC. presenta la solución integral para jardinería en climas extremos. Nuestra manta de 60g/m² protege su inversión contra el frío.</p>
+            <div class="feature-item">
+                <h3><i class="fas fa-box-open"></i> 1. Kit Completo Todo en Uno</h3>
+                <p>Incluye: manta de 10x30ft, 20 estacas (15cm), 20 clips de acero, lazos de 100ft, mazo y guantes.</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-shield-alt"></i> 2. Protección Superior de 60g/m²</h3>
+                <p>Material no tejido de alta densidad que proporciona una barrera térmica superior para sus plantas.</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-wind"></i> 3. Diseño Transpirable Multiestacional</h3>
+                <p>Sombra en verano o barrera contra plagas en primavera. Permite el paso de aire, luz y agua.</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-hammer"></i> 4. Instalación Fácil con Herramientas</h3>
+                <p>Configuración segura con el mazo y las estacas incluidas. Sujeción personalizada para cualquier estructura.</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-seedling"></i> 5. Amplia Aplicación</h3>
+                <p>Perfecto para huertos, arbustos y cítricos. Diseñado para resistir las condiciones climáticas más difíciles.</p>
+            </div>
+            <div class="cta-box"><a href="https://www.amazon.ca/dp/B0FLY5JSY7" class="btn">Comprar en Amazon.ca</a></div>
+        </div>
+
+        <div id="zh-content" class="lang-content">
+            <span class="tagline">工业级防护标准 - 易选园艺空间</span>
+            <h1>植物防霜防冻全能套装 (10x30英尺 / 3.05x9.14米)</h1>
+            <p>EZGZ INC. 为您的花园提供一站式极端天气防护方案。专业级 1.77oz/yd² (60g/m²) 加厚防护毯，确保您的植物无惧严寒、冰雪与强风。</p>
+            <div class="feature-item">
+                <h3><i class="fas fa-box-open"></i> 1. 全能型一站式套装</h3>
+                <p>包含：10x30英尺重型防寒毯、20枚地钉 (15cm)、20个不锈钢固定夹、30米植物扎带、安装锤及防护手套。一箱开启全方位保护！</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-shield-alt"></i> 2. 卓越 1.77oz/yd² 防护性能</h3>
+                <p>采用 60g/m² 优质无纺布材质。高密度结构提供更强的热屏障，在极寒天气下能显著提升环境温度。</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-wind"></i> 3. 四季通用透气设计</h3>
+                <p>夏季可作为遮阳网，春季可作为防虫屏障。透气材质确保空气、阳光和水分充足，全年呵护植物生长。</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-hammer"></i> 4. 轻松安装，工具齐全</h3>
+                <p>使用内置安装锤和 U 型地钉即可轻松稳固。工业级不锈钢夹和扎带支持各类园艺结构的灵活加固。</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-seedling"></i> 5. 广泛的适用性</h3>
+                <p>完美适配菜床、蔬菜地、娇嫩灌木及柑橘树等果树。专为应对最严苛的气候条件而设计。</p>
+            </div>
+            <div class="cta-box"><a href="https://www.amazon.ca/dp/B0FLY5JSY7" class="btn">在 Amazon.ca 购买</a></div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="contact-box">
+            <div id="en-contact" class="lang-content active">
+                <h4>Bulk Orders & Wholesale</h4>
+                <p>Extensive inventory available at <strong>Easy Garden Zone</strong>. Contact our sales team for bulk inquiries.</p>
+            </div>
+            <div id="fr-contact" class="lang-content">
+                <h4>Commandes en Gros</h4>
+                <p>Stock important disponible chez <strong>Easy Garden Zone</strong>. Contactez-nous pour toute demande.</p>
+            </div>
+            <div id="es-contact" class="lang-content">
+                <h4>Pedidos al por Mayor</h4>
+                <p>Amplio inventario disponible en <strong>Easy Garden Zone</strong>. Contáctenos para consultas.</p>
+            </div>
+            <div id="zh-contact" class="lang-content">
+                <h4>大批量采购与批发合作</h4>
+                <p><strong>易选园艺空间</strong> 拥有充足现货。如需大批量采购，请联系我们的销售团队。</p>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item"><i class="fas fa-phone-alt"></i> <a href="tel:+16479477563">1-647-947-7563</a></div>
+                <div class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:sales@ezgz.com">sales@ezgz.com</a></div>
+            </div>
+        </div>
+
+        <div id="en-priv" class="privacy-card lang-content active">
+            <h4>Data Privacy</h4>
+            <p>EZGZ INC. secures all data with AES-256 encryption via SSL protocols.</p>
+        </div>
+        <div id="zh-priv" class="privacy-card lang-content">
+            <h4>数据隐私与交易安全</h4>
+            <p>EZGZ INC. 承诺所有交易数据均通过 SSL 协议进行 AES-256 加密保护。</p>
+        </div>
+
+        <div class="copy">
+            <div id="footer-domain-text" style="margin-bottom: 5px; color: #999;">
+                EZGZ.COM - Your Professional Easy Garden Zone Since 2005
+            </div>
+            &copy; 2025-2026 <strong>EZGZ INC.</strong> All Rights Reserved.
+        </div>
+    </div>
+</footer>
+
+<script>
+    const images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg', '6.jpg', '7.jpg', '8.jpg'];
+    let currentIndex = 0;
+    let autoSlide = setInterval(nextSlide, 3000);
+
+    function updateImg(index) {
+        currentIndex = index;
+        const display = document.getElementById('main-display');
+        display.style.opacity = '0';
+        setTimeout(() => {
+            display.src = images[currentIndex];
+            display.style.opacity = '1';
+        }, 200);
+        const thumbs = document.querySelectorAll('.thumb-item');
+        thumbs.forEach(t => t.classList.remove('active'));
+        thumbs[currentIndex].classList.add('active');
+    }
+
+    function nextSlide() {
+        let next = (currentIndex + 1) % images.length;
+        updateImg(next);
+    }
+
+    function manualUpdate(index) {
+        clearInterval(autoSlide);
+        updateImg(index);
+    }
+
+    const localizations = {
+        en: { sub: "EASY GARDEN ZONE", footer: "EZGZ.COM - Your Professional Easy Garden Zone Since 2005" },
+        fr: { sub: "ZONE DE JARDIN FACILE", footer: "EZGZ.COM - Votre Zone de Jardin Facile depuis 2005" },
+        es: { sub: "ZONA DE JARDÍN FÁCIL", footer: "EZGZ.COM - Su Zona de Jardín Fácil desde 2005" },
+        zh: { sub: "易选园艺空间", footer: "EZGZ.COM - 您的专业易选园艺空间（始于2005年）" }
+    };
+
+    function changeLang(lang) {
+        document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
+        document.getElementById(lang + '-content').classList.add('active');
+        if(document.getElementById(lang + '-priv')) document.getElementById(lang + '-priv').classList.add('active');
+        if(document.getElementById(lang + '-contact')) document.getElementById(lang + '-contact').classList.add('active');
+        
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById('btn-' + lang).classList.add('active');
+
+        document.getElementById('logo-subtext').innerText = localizations[lang].sub;
+        document.getElementById('footer-domain-text').innerText = localizations[lang].footer;
+    }
+</script>
+</body>
+</html>
